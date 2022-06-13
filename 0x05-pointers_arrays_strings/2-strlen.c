@@ -1,29 +1,23 @@
+#include <string.h>
 #include "main.h"
 /**
- * swap_int - exchanges (swaps) the values of any two integers.
+ * _strlen - evaluates and returns the length of given string
+ * @s: input string argument to evaluate
  *
- * @a: first input integer argument for alteration
- * @b: second input integer argument for alteration
+ * Return: length of a string (int type)
  *
- * Return: void (nothing)
  */
-void swap_int(int *a, int *b)
+int _strlen(char *s)
 {
-	/* tmp: temporary variable holds one of the values temporarily */
-	int tmp;
-
 	/**
-	 * To swap, do these steps:
-	 *
-	 * 1. tmp = *a
-	 *
-	 * 2. *a = *b
-	 *
-	 * 3. *b = tmp
+	 * pointer 'str' is local to this func
+	 * it is defined **str, so as to assign pointer of pointer to it
 	 */
+	char **str;
 
-	tmp = *a;
+	/* str - holds reference to 's' address so as to access its content */
+	str = &s;
 
-	*a = *b;
-	*b = tmp;
+	/* Use C support string function: strlen(input_str) */
+	return (strlen(*str));
 }
