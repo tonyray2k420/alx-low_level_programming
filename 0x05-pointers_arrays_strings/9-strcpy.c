@@ -1,31 +1,29 @@
-#include <stdio.h>
+#include <string.h>
 #include "main.h"
 
 /**
- * print_array - prints members of an array
- * @a: pointer to an array
- * @n: number of members of an array to print
+ * _strcpy - copies a string from source to dest
+ * @dest: holds a copy of the source
+ * @src: holds value to copy
  *
- * Return: void (nothing)
+ * Return: pointer to string of char
  */
-void print_array(int *a, int n)
+char *_strcpy(char *dest, char *src)
 {
-	int i;
+	int j, len;
 
-	i = 0;
+	/* j - loop counter for copying */
+	j = 0;
 
-	while (i < n)
+	/* get the length of input string */
+	len = strlen(src);
+
+	/* deep copy: copy from src to dest */
+	while (j <= len)
 	{
-		printf("%d", a[i]);
-
-		if (i != n - 1)
-		{
-			printf(",");
-			printf(" ");
-		}
-
-		i++;
+		dest[j] = src[j];
+		j++;
 	}
 
-	printf("\n");
+	return (dest);
 }
