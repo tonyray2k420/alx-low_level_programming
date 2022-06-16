@@ -1,34 +1,49 @@
-#include "main.h"
 #include <string.h>
+#include "main.h"
 /**
- * string_toupper - changes all lowercase letters of a string to uppercase
- * @s: input string to change its character to uppercase.
+ * cap_string - capitalizes all words of a string.
+ * @s: input string
  *
- * Return: pointer to string.
+ * Return: pointer to string of characters.
  */
-char *string_toupper(char *s)
+char *cap_string(char *s)
 {
-	int i = 0;
+	/**
+	 * i: loop incremental, len: length and el: element
+	 */
+	int i, len, el;
+
+	char *sp = "\t\n ,;.!?\"(){}";	/* sp: array of word separators */
+
+	i = 0;
+
+	len = strlen(sp);	/* Get the no. of elements in sp */
 
 	while (*(s + i) != '\0')
 	{
-		/**
-		 * If the current element is lowercase,
-		 * then change it to uppercase.
-		 */
-		if (*(s + i) >= 97 && *(s + i) <= 122)
+		/* Always make the beginning of sentence uppercase if lower */
+		if (i == 0 && *(s + i) >= 97 && *(s + i) <= 122)
+		{
 			s[i] = *(s + i) - 32;
+		}
 
-		/**
-		 * If the current element is not lowercase or any
-		 * character other than letters, like numbers and symbols,
-		 * then leave it the way it is.
-		 */
+		el = 0;
+		/* for each string characters, check for any of word sp */
+		while (el < len)
+		{
+			if (*(s + i) == *(sp + el))
+			{
+				if (*(s + i + 1) >= 97 && *(s + i + 1) <= 122)
+					s[i + 1] = *(s + i + 1) - 32;
+
+			}
+
+			el++;
+		}
 
 		i++;
 	}
 
-	/* Add NULL terminating character after the whole process */
 	s[strlen(s) + 1] = '\0';
 
 	return (s);
