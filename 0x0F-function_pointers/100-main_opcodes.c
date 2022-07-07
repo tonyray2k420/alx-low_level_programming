@@ -1,41 +1,46 @@
-#include "function_pointers.h"
-#include <udis86.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
- * main - prints the opcodes of its own main function
- * @argc: argument counts
- * @argv: array of pointer to pointer
+ * main - Prints the opcodes of itself.
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
  *
- * Return: Always 0 for success
+ * Return: Always 0.
  */
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	int number;
-	ud_t ud_obj;
+	int bytes, index;
+	int (*address)(int, char **) = main;
+	unsigned char opcode;
 
-	if (argc < 2)
+	if (argc != 2)
 	{
 		printf("Error\n");
 		exit(1);
 	}
 
-	number = atoi(argv[1]);
+	bytes = atoi(argv[1]);
 
-	if (number < 0)
+	if (bytes < 0)
 	{
 		printf("Error\n");
 		exit(2);
 	}
 
-	ud_init(&ud_obj);
-	ud_set_input_buffer(&ud_obj, argv[1], number);
-	ud_set_mode(&ud_obj, 64);
-	ud_set_syntax(&ud_obj, UD_SYN_INTEL);
-
-	while (ud_disassemble(&ud_obj))
+	for (index = 0; index < bytes; index++)
 	{
-		printf("\t%s\n", ud_insn_hex(&ud_obj));
+		opcode = *(unsigned char *)address;
+		printf("%.2x", opcode);
+
+		if (index == bytes - 1)
+			continue;
+		printf(" ");
+
+		address++;
 	}
+
+	printf("\n");
 
 	return (0);
 }
