@@ -1,34 +1,43 @@
 #include "3-calc.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
- * main - combines all codes
- * @argc: argument counts
- * @argv: pointer of pointers
+ * main - Prints the result of simple operations.
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
  *
- * Return: int result, exit status code
+ * Return: Always 0.
  */
-int main(int argc, char **argv)
+int main(int __attribute__((__unused__)) argc, char *argv[])
 {
-	int operand_1, operand_2;
-	int (*operator)(int, int);
+	int num1, num2;
+	char *op;
 
-	if (argc < 4 || argc > 4)
+	if (argc != 4)
 	{
 		printf("Error\n");
 		exit(98);
 	}
 
-	operand_1 = atoi(argv[1]);
-	operand_2 = atoi(argv[3]);
-	operator = get_op_func(argv[2]);
+	num1 = atoi(argv[1]);
+	op = argv[2];
+	num2 = atoi(argv[3]);
 
-	if (operator == NULL)
+	if (get_op_func(op) == NULL || op[1] != '\0')
 	{
 		printf("Error\n");
 		exit(99);
 	}
 
-	printf("%d\n", operator(operand_1, operand_2));
+	if ((*op == '/' && num2 == 0) ||
+	    (*op == '%' && num2 == 0))
+	{
+		printf("Error\n");
+		exit(100);
+	}
+
+	printf("%d\n", get_op_func(op)(num1, num2));
 
 	return (0);
 }
