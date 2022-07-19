@@ -1,22 +1,20 @@
 #include "lists.h"
 /**
- * pop_listint - deletes the head node
+ * get_nodeint_at_index - finds a given node in a linked list
  * @head : pointer to the head of the linked list
- * Return: head node's data (n)
- *         or 0 - if the linked list is empty
+ * @index: index of the node to find (indices starting at 0)
+ * Return: pointer to the desired node,
+ *         or NULL - if the node does not exist
  */
-int pop_listint(listint_t **head)
+listint_t *get_nodeint_at_index(listint_t *head, unsigned int index)
 {
-listint_t *temp;
-int n;
+size_t n;
 
-temp = *head;
+for (n = 0; (n < index) && (head->next); n++)
+head = head->next;
 
-if (temp == NULL)
-return (0);
+if (n < index)
+return (NULL);
 
-*head = temp->next;
-n = temp->n;
-free(temp);
-return (n);
+return (head);
 }
